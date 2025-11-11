@@ -161,7 +161,7 @@ if len(uploaded_files) == 2:
     result["Priority1_rDNS"] = result["Priority1_rDNS"].apply(clean_ip_list)
     result["Priority2_No_fDNS"] = result["Priority2_No_fDNS"].apply(clean_ip_list)
 
-    output_filename = f"Jayanth_PMTA_Output_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.xlsx"
+    output_filename = f"PMTA_Output_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.xlsx"
     result.to_excel(output_filename, index=False)
 
     st.balloons()
@@ -178,5 +178,6 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files to begin the magic show 🎩✨")
+
 
 
