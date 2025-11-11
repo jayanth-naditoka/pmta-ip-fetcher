@@ -6,12 +6,12 @@ from datetime import datetime
 
 # 💫 PAGE SETUP
 st.set_page_config(
-    page_title="PMTA",
+    page_title="Jayanth's PMTA Playground 🎠",
     page_icon="🎈",
     layout="wide"
 )
 
-
+# 💅 Magical CSS — bright, childish, and happy
 st.markdown("""
 <style>
 body {
@@ -178,6 +178,3 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files to begin the magic show 🎩✨")
-
-
-
