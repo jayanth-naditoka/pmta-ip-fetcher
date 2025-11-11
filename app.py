@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# 💅 Magical CSS — bright, childish, and happy
+
 st.markdown("""
 <style>
 body {
@@ -19,8 +19,8 @@ body {
     background: linear-gradient(135deg, #ffecd2, #fcb69f);
     color: #2b2b2b;
 }
-h1, h2, h3 {
-    color: #000000;
+h1, h2, h3, .stMarkdown p, .stMarkdown span {
+    color: #000000 !important;  /* 🔥 Force all headings and motto text to black */
 }
 .stApp { background: transparent; }
 section[data-testid="stSidebar"] {
@@ -52,8 +52,14 @@ div[data-testid="stAlert"] {
     border-radius: 12px;
 }
 footer { visibility: hidden; }
+
+/* 🎯 Force specific sections (title, motto, step text) to black */
+h1, h2, h3, p, label {
+    color: #000000 !important;
+}
 </style>
 """, unsafe_allow_html=True)
+
 
 # 🎈 HEADER SECTION
 st.title("PMTA Smart IP Fetcher — Developed by Jayanth")
@@ -172,4 +178,5 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files to begin the magic show 🎩✨")
+
 
