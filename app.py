@@ -6,7 +6,7 @@ from datetime import datetime
 
 # 💫 PAGE SETUP
 st.set_page_config(
-    page_title="Jayanth's PMTA Playground 🎠",
+    page_title="PMTA",
     page_icon="🎈",
     layout="wide"
 )
@@ -20,7 +20,7 @@ body {
     color: #2b2b2b;
 }
 h1, h2, h3 {
-    color: #4c2c72;
+    color: #000000;
 }
 .stApp { background: transparent; }
 section[data-testid="stSidebar"] {
@@ -172,3 +172,4 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files to begin the magic show 🎩✨")
+
