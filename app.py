@@ -11,7 +11,8 @@ st.set_page_config(
     layout="wide"
 )
 
- st.markdown("""
+
+st.markdown("""
 <style>
 body {
     font-family: "Comic Sans MS", "Comic Neue", cursive;
@@ -177,4 +178,3 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files here✨")
-
