@@ -11,8 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# 💅 Magical CSS — bright, childish, and happy
-st.markdown("""
+ st.markdown("""
 <style>
 body {
     font-family: "Comic Sans MS", "Comic Neue", cursive;
@@ -91,7 +90,7 @@ if len(uploaded_files) == 2:
     elif is_detailed(df2):
         ex1, ex2 = df2, df1
     else:
-        st.error("😡 Both files are missing IP, rDNS, fDNS, PMTA. Even my goldfish can do better.")
+        st.error("😡 Both files are missing IP, rDNS, fDNS, PMTA.")
         st.stop()
 
     st.success(f"""
@@ -177,4 +176,5 @@ if len(uploaded_files) == 2:
 elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
-    st.info("👆 Upload two Excel files to begin the magic show 🎩✨")
+    st.info("👆 Upload two Excel files here✨")
+
