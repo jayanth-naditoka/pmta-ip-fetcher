@@ -6,8 +6,8 @@ from datetime import datetime
 
 # 💫 PAGE SETUP
 st.set_page_config(
-    page_title="Jayanth's PMTA Playground 🎠",
-    page_icon="🎈",
+    page_title="PMTA and IP Fetcher",
+    page_icon="8->oo",
     layout="wide"
 )
 
@@ -178,3 +178,4 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files here✨")
+
