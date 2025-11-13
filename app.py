@@ -69,7 +69,7 @@ st.markdown("""
 st.divider()
 
 # 📂 FILE UPLOAD
-st.subheader("Step 1: Drop your Excel mess here 🍪")
+st.subheader("Drop your Excel sheets")
 uploaded_files = st.file_uploader(
     "Drop exactly TWO Excel files — one detailed (with IP, PMTA, rDNS, fDNS) and one PMTA-only.",
     type=["xlsx"],
@@ -78,7 +78,7 @@ uploaded_files = st.file_uploader(
 
 # 🧠 LOGIC
 if len(uploaded_files) == 2:
-    st.info("🦄 Nice! Two files received. Let’s see what nonsense they hold...")
+    st.info("🦄 Nice! Two files received....")
 
     df1 = pd.read_excel(uploaded_files[0])
     df2 = pd.read_excel(uploaded_files[1])
@@ -116,13 +116,13 @@ if len(uploaded_files) == 2:
         time.sleep(0.015)
         progress.progress(i)
         if i < 40:
-            status.text("🤓 Calculating random numbers that make me look smart...")
+            status.text("...")
         elif i < 70:
-            status.text("🔮 Summoning DNS spirits...")
+            status.text("...")
         elif i < 90:
-            status.text("🦾 Crunching data like a pro...")
+            status.text("...")
         else:
-            status.text("🎁 Wrapping your results with glitter...")
+            status.text("🎁 Wrapping your results...")
 
     # 🧩 PRIORITY MAGIC
     def is_priority1_rDNS(value):
@@ -178,4 +178,5 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files here✨")
+
 
