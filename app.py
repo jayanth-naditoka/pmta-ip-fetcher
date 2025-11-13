@@ -62,9 +62,9 @@ h1, h2, h3, p, label {
 
 
 # 🎈 HEADER SECTION
-st.title("PMTA Smart IP Fetcher — Developed by Jayanth")
+st.title("PMTA-IP Fetcher — Developed by Jayanth")
 st.markdown("""
-**Motto:** “If it works, don’t ask how.”
+**Motto:** “Make things easier!”
 """)
 st.divider()
 
@@ -178,5 +178,6 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files here✨")
+
 
 
