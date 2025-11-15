@@ -11,7 +11,6 @@ st.set_page_config(
     layout="wide"
 )
 
-
 st.markdown("""
 <style>
 body {
@@ -20,7 +19,7 @@ body {
     color: #2b2b2b;
 }
 h1, h2, h3, .stMarkdown p, .stMarkdown span {
-    color: #000000 !important;  /* 🔥 Force all headings and motto text to black */
+    color: #000000 !important;
 }
 .stApp { background: transparent; }
 section[data-testid="stSidebar"] {
@@ -53,13 +52,12 @@ div[data-testid="stAlert"] {
 }
 footer { visibility: hidden; }
 
-/* 🎯 Force specific sections (title, motto, step text) to black */
+/* Force specific sections to black */
 h1, h2, h3, p, label {
     color: #000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # 🎈 HEADER SECTION
 st.title("PMTA-IP Fetcher — Developed by Jayanth")
@@ -68,23 +66,24 @@ st.markdown("""
 """)
 st.divider()
 
-# 📂 FILE UPLOAD
-st.subheader("Drop your Excel sheets")
+# 📂 FILE UPLOAD  (UPDATED TO ACCEPT CSV, XLS, XLSX)
+st.subheader("Drop your Excel or CSV files")
 uploaded_files = st.file_uploader(
-    "Drop exactly TWO Excel files — one detailed (with IP, PMTA, rDNS, fDNS) and one PMTA-only.",
-    type=["xlsx"],
+    "Drop exactly TWO files — CSV or Excel (one detailed, one PMTA-only).",
+    type=["csv", "xls", "xlsx"],
     accept_multiple_files=True
 )
 
-# 🧠 LOGIC
-if len(uploaded_files) == 2:
-    st.info("🦄 Nice! Two files received....")
-
-    def load_file(file):
+# Function to auto-detect file type (NEW)
+def load_file(file):
     if file.name.endswith(".csv"):
         return pd.read_csv(file)
     else:
         return pd.read_excel(file)
+
+# 🧠 LOGIC
+if len(uploaded_files) == 2:
+    st.info("🦄 Nice! Two files received....")
 
     df1 = load_file(uploaded_files[0])
     df2 = load_file(uploaded_files[1])
@@ -156,7 +155,7 @@ if len(uploaded_files) == 2:
     grouped_df = ex1.groupby("PMTA").apply(get_priority_ips).reset_index()
     result = ex2.merge(grouped_df, on="PMTA", how="left").fillna("")
 
-    # 🧹 CLEANUP: keep only valid IPv4, remove IPv6 / domains / junk
+    # 🧹 CLEANUP
     ipv4_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
     def clean_ip_list(cell):
         if not isinstance(cell, str):
@@ -183,8 +182,4 @@ if len(uploaded_files) == 2:
 elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
-    st.info("👆 Upload two Excel files here✨")
-
-
-
-
+    st.info("👆 Upload two files here ✨")
