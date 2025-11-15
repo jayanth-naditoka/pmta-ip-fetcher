@@ -4,7 +4,6 @@ import time
 import re
 from datetime import datetime
 
-# 💫 PAGE SETUP
 st.set_page_config(
     page_title="PMTA and IP Fetcher",
     page_icon="8->oo",
@@ -52,21 +51,18 @@ div[data-testid="stAlert"] {
 }
 footer { visibility: hidden; }
 
-/* Force specific sections to black */
 h1, h2, h3, p, label {
     color: #000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# 🎈 HEADER SECTION
 st.title("PMTA-IP Fetcher — Developed by Jayanth")
 st.markdown("""
 **Motto:** “Make things easier!”
 """)
 st.divider()
 
-# 📂 FILE UPLOAD  (UPDATED TO ACCEPT CSV, XLS, XLSX)
 st.subheader("Drop your Excel or CSV files")
 uploaded_files = st.file_uploader(
     "Drop exactly TWO files — CSV or Excel (one detailed, one PMTA-only).",
@@ -74,14 +70,12 @@ uploaded_files = st.file_uploader(
     accept_multiple_files=True
 )
 
-# Function to auto-detect file type (NEW)
 def load_file(file):
     if file.name.endswith(".csv"):
         return pd.read_csv(file)
     else:
         return pd.read_excel(file)
 
-# 🧠 LOGIC
 if len(uploaded_files) == 2:
     st.info("🦄 Nice! Two files received....")
 
@@ -129,7 +123,6 @@ if len(uploaded_files) == 2:
         else:
             status.text("🎁 Wrapping your results...")
 
-    # 🧩 PRIORITY MAGIC
     def is_priority1_rDNS(value):
         if not isinstance(value, str) or value in {"No_rDNS", ""} or ":" in value:
             return False
@@ -155,7 +148,6 @@ if len(uploaded_files) == 2:
     grouped_df = ex1.groupby("PMTA").apply(get_priority_ips).reset_index()
     result = ex2.merge(grouped_df, on="PMTA", how="left").fillna("")
 
-    # 🧹 CLEANUP
     ipv4_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
     def clean_ip_list(cell):
         if not isinstance(cell, str):
