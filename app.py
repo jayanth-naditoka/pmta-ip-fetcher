@@ -80,8 +80,14 @@ uploaded_files = st.file_uploader(
 if len(uploaded_files) == 2:
     st.info("🦄 Nice! Two files received....")
 
-    df1 = pd.read_excel(uploaded_files[0])
-    df2 = pd.read_excel(uploaded_files[1])
+    def load_file(file):
+    if file.name.endswith(".csv"):
+        return pd.read_csv(file)
+    else:
+        return pd.read_excel(file)
+
+    df1 = load_file(uploaded_files[0])
+    df2 = load_file(uploaded_files[1])
 
     def is_detailed(df):
         return {"IP", "rDNS", "fDNS", "PMTA"}.issubset(df.columns)
@@ -178,6 +184,7 @@ elif len(uploaded_files) > 2:
     st.warning("😤 Woah there, too many files! I have two hands, not eight.")
 else:
     st.info("👆 Upload two Excel files here✨")
+
 
 
 
