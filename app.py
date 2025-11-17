@@ -90,11 +90,11 @@ if len(uploaded_files) == 2:
     elif is_detailed(df2):
         ex1, ex2 = df2, df1
     else:
-        st.error("😡 Both files are missing IP, rDNS, fDNS, PMTA.")
+        st.error("Both files are missing IP, rDNS, fDNS, PMTA!!")
         st.stop()
 
     st.success(f"""
-    🧩 Smart Detector says:
+    🧩 Given Files:
     - **Detailed file:** `{uploaded_files[0].name if is_detailed(df1) else uploaded_files[1].name}`
     - **PMTA list file:** `{uploaded_files[1].name if is_detailed(df1) else uploaded_files[0].name}`
     """)
@@ -107,7 +107,7 @@ if len(uploaded_files) == 2:
     ex2 = ex2.drop_duplicates(subset=["PMTA"], keep="first")
     ex1 = ex1[ex1["IP"] != ex1["PMTA"]]
 
-    st.subheader("Abracadabra, IPs sorted! 🧙‍♂️🔮")
+    st.subheader("IPs Pulled!🔮")
     progress = st.progress(0)
     status = st.empty()
 
@@ -165,13 +165,14 @@ if len(uploaded_files) == 2:
     st.success("🎉 Done! your Excel is now shiny, clean, and IPv6-free 💫")
 
     st.download_button(
-        label="🎁 Click to Download My Awesome Excel",
+        label="🎁 Click to Download Excel",
         data=open(output_filename, "rb").read(),
         file_name=output_filename,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
 elif len(uploaded_files) > 2:
-    st.warning("😤 Woah there, too many files! I have two hands, not eight.")
+    st.warning("Too many files! ")
 else:
     st.info("👆 Upload two files here ✨")
+
