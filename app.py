@@ -50,7 +50,6 @@ div[data-testid="stAlert"] {
     border-radius: 12px;
 }
 footer { visibility: hidden; }
-
 h1, h2, h3, p, label {
     color: #000000 !important;
 }
@@ -58,10 +57,14 @@ h1, h2, h3, p, label {
 """, unsafe_allow_html=True)
 
 st.title("PMTA-IP Fetcher — Developed by Jayanth")
-st.markdown("""
-**Motto:** “Make things easier!”
-""")
+st.markdown("**Motto:** “Make things easier!”")
 st.divider()
+
+# ❗️ NEW FEATURE → User selects how many IPs they want
+num_ips = st.number_input(
+    "How many IPs do you want per PMTA?",
+    min_value=1, max_value=50, value=4, step=1
+)
 
 st.subheader("Drop your Excel or CSV files")
 uploaded_files = st.file_uploader(
@@ -129,17 +132,24 @@ if len(uploaded_files) == 2:
         digits = sum(c.isdigit() for c in value)
         return digits >= 7 or digits == 0
 
+    # UPDATED FUNCTION → uses num_ips
     def get_priority_ips(group):
         p1 = group[group["rDNS"].apply(is_priority1_rDNS)]["IP"].astype(str).tolist()
-        if len(p1) < 4:
+
+        # Fill remaining with No_rDNS
+        if len(p1) < num_ips:
             no_rdns = group[group["rDNS"] == "No_rDNS"]["IP"].astype(str).tolist()
             for ip in no_rdns:
                 if ip not in p1:
                     p1.append(ip)
-                if len(p1) == 4:
+                if len(p1) == num_ips:
                     break
+
+        # Priority 2
         p2 = group[(group["fDNS"] == "No_fDNS") & (~group["IP"].isin(p1))]["IP"].astype(str).tolist()
-        combined = list(dict.fromkeys(p1 + p2))[:4]
+
+        combined = list(dict.fromkeys(p1 + p2))[:num_ips]
+
         return pd.Series({
             "Priority1_rDNS": ",".join(ip for ip in combined if ip in p1),
             "Priority2_No_fDNS": ",".join(ip for ip in combined if ip in p2)
@@ -149,6 +159,7 @@ if len(uploaded_files) == 2:
     result = ex2.merge(grouped_df, on="PMTA", how="left").fillna("")
 
     ipv4_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+
     def clean_ip_list(cell):
         if not isinstance(cell, str):
             return ""
@@ -172,7 +183,6 @@ if len(uploaded_files) == 2:
     )
 
 elif len(uploaded_files) > 2:
-    st.warning("Too many files! ")
+    st.warning("Too many files!")
 else:
     st.info("👆 Upload two files here ✨")
-
